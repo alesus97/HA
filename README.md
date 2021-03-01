@@ -1,8 +1,8 @@
 # HomeAssistant Config
 
 
-[![GitHub stars](https://img.shields.io/github/stars/alesus97/HomeAssistant)](https://github.com/alesus97/HomeAssistant)
-[![GitHub last commit](https://img.shields.io/github/last-commit/alesus97/HomeAssistant)](https://github.com/alesus97/HomeAssistant/commits/master)
+[![GitHub stars](https://img.shields.io/github/stars/alesus97/HA)](https://github.com/alesus97/HA)
+[![GitHub last commit](https://img.shields.io/github/last-commit/alesus97/HA)](https://github.com/alesus97/HA/commits/master)
 [![HA Version](https://img.shields.io/badge/Running%20Home%20Assistant-0.118.2%20-darkblue)](https://github.com/home-assistant/home-assistant/releases/latest)
 # Devices
 

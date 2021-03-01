@@ -1,0 +1,42 @@
+#  - platform: mqtt
+#    name: "Spina 1"
+#    state_topic: "stat/spina1/POWER"
+#    command_topic: "cmnd/spina1/POWER"
+#    availability_topic: "tele/spina1/LWT"
+#    payload_on: "ON"
+#    payload_off: "OFF"
+#    payload_available: "Online"
+#    payload_not_available: "Offline"
+#    retain: false
+#    icon: mdi:power-socket-eu
+    
+#  - platform: mqtt
+#    name: "Spina 2"
+#    state_topic: "stat/spina2/POWER"
+#    command_topic: "cmnd/spina2/POWER"
+#    availability_topic: "tele/spina2/LWT"
+#    payload_on: "ON"
+#    payload_off: "OFF"
+#    payload_available: "Online"
+#    payload_not_available: "Offline"
+#    retain: false
+#    icon: mdi:power-socket-eu
+    
+  - platform: mqtt
+    name: "Switch Sonoff Riscaldamento"
+    state_topic: "stat/sonoffMini/Riscaldamento/POWER"
+    command_topic: "cmnd/sonoffMini/Riscaldamento/POWER"
+    availability_topic: "tele/sonoffMini/Riscaldamento/LWT"
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    retain: false
+    icon: mdi:radiator
+    
+#  - platform: wake_on_lan
+#    mac: "88:e9:fe:7e:d5:06"
+#    host: 192.168.1.5
+#    name: "Macbook Pro di Alessio"
+#    turn_on:
+#      service: shell_command.mac_off

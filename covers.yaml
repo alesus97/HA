@@ -1,0 +1,26 @@
+#  - platform: mqtt
+#    name: "Tapparella Camera Alessio"
+#    availability_topic: "tele/sonoffDual/TapparellaCameraAlessio/LWT"
+#    payload_available: "Online"
+#    payload_not_available: "Offline"
+#    position_topic: "stat/sonoffDual/TapparellaCameraAlessio/RESULT"
+#    value_template: >
+#      {% if ('Shutter1' in value_json) and ('Position' in value_json.Shutter1) %}
+#        {{ value_json.Shutter1.Position }}
+#      {% else %}
+#        {% if is_state('cover.tapparella_camera_alessio', 'unknown') %}
+#          50
+#        {% else %}
+#          {{ state_attr('cover.tapparella_camera_alessio','current_position') }}
+#        {% endif %}
+#      {% endif %}    
+#    position_open: 100
+#    position_closed: 0
+#    set_position_topic: "cmnd/sonoffDual/TapparellaCameraAlessio/ShutterPosition1"
+#    command_topic: "cmnd/sonoffDual/TapparellaCameraAlessio/Backlog"
+#    payload_open: "ShutterOpen1"
+#    payload_close: "ShutterClose1"
+#    payload_stop: "ShutterStop1"
+#    retain: false
+#    optimistic: false
+#    qos: 1

@@ -1,0 +1,31 @@
+title: Floorplan
+path: floorplan
+panel: true
+icon: mdi:floor-plan
+cards:
+  - type: picture-elements
+    image: /config/prova.png
+    elements:
+
+      # Lighting Overlays
+      - type: image
+        entity: light.kitchen
+        tap_action: none
+        hold_action: none
+        state_image:
+          "on": /config/prova.png
+          "off": /config/prova.png
+        style:
+          top: 50%
+          left: 50%
+          width: 100%
+
+      # Light Toggles
+      - type: image
+        entity: light.kitchen
+        tap_action:
+          action: toggle
+        image: /config/prova.png
+        style:
+          top: 71%
+          left: 40.5%

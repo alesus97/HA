@@ -1,0 +1,8 @@
+
+  include:
+    domains:
+      - switch
+      - light
+      - climate
+    entities:
+      - sensor.temperatura_corridoio

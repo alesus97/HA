@@ -1,0 +1,86 @@
+- id: 3cfb0f373a3b4093b9a700a54694a4a9
+  alias: Notifica spegnimento luce camera alessio
+  trigger:
+  - platform: state
+    from: 'off'
+    to: 'on'
+    entity_id: light.luce_camera_alessio
+  action:
+  - service: notify.mobile_app_m2002j9g
+    data:
+      message: Accesa Luce Camera Alessio
+      data:
+        actions:
+        - action: alarm
+          title: Title
+        - action: URI
+          title: Open Url
+          uri: https://google.com
+        - action: URI
+          title: Open Twitter
+          uri: app://com.twitter.android
+  mode: single
+- id: 7ddaaeef32d04820bf8826eb465a64f2
+  alias: Sync Tasmota states
+  description: Sincronizza stato luci e tapparelle al riavvio di HA
+  trigger:
+  - platform: homeassistant
+    event: start
+  action:
+  - service: mqtt.publish
+    data:
+      topic: cmnd/tasmotas/state
+      payload: ''
+  - service: mqtt.publish
+    data:
+      topic: tasmotas/cmnd/state
+      payload: ''
+  - service: mqtt.publish
+    data:
+      topic: cmnd/tasmotas/SHUTTERPOSITION
+      payload: ''
+  - service: mqtt.publish
+    data:
+      topic: cmnd/sonoffMini/Riscaldamento/POWER
+      payload: ''
+  initial_state: true
+  mode: single
+- id: '1606073382946'
+  alias: 'Sync Riscaldamento '
+  description: Accendi riscaldamento dopo riavvio di HA se il sonoff del riscaldamento
+    è acceso
+  trigger:
+  - platform: state
+    entity_id: switch.switch_sonoff_riscaldamento
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: climate.turn_on
+    data: {}
+    entity_id: climate.riscaldamento
+  mode: single
+- id: '1607449716345'
+  alias: Accendi albero alle 16.30
+  description: ''
+  trigger:
+  - platform: time
+    at: '16:30'
+  condition: []
+  action:
+  - service: switch.turn_on
+    data: {}
+    entity_id: switch.spina_2
+  mode: single
+- id: '1607449865369'
+  alias: Spegni albero alle 2
+  description: ''
+  trigger:
+  - platform: time
+    at: 02:00
+  condition: []
+  action:
+  - service: switch.turn_off
+    data: {}
+    entity_id: switch.spina_2
+  mode: single

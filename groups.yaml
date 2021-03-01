@@ -1,0 +1,8 @@
+lights:
+    name: AllLights
+    entities:
+      - light.luce_camera_alessio
+      - light.luce_corridoio
+      - light.luce_soggiorno_1
+      - light.luce_soggiorno_2
+      - light.applique_camera_alessio

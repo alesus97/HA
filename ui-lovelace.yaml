@@ -1,0 +1,243 @@
+#custom_header:
+#  compact_mode: true
+#  background: var(--app-header-background-color)
+#  elements_color: var(--app-header-text-color)
+#  active_tab_color: var(--state-icon-active-color)
+#  tab_indicator_color: var(--state-icon-active-color)
+  
+iron-overlay-backdrop-filter: blur(10px) grayscale(50%)
+iron-overlay-backdrop-background-color: 'rgba(41,128,185,0.25)'
+
+resources:
+  - type: module
+    url: /hacsfiles/mini-graph-card/mini-graph-card-bundle.js
+  - type: module
+    url: /hacsfiles/simple-thermostat/simple-thermostat.js
+  - type: module
+    url: /hacsfiles/lovelace-card-mod/card-mod.js
+  - type: module
+    url: /hacsfiles/lovelace-multiple-entity-row/multiple-entity-row.js
+  - type: module
+    url: /hacsfiles/button-card/button-card.js
+  - type: module
+    url: /hacsfiles/radial-menu/radial-menu.js
+  - type: module
+    url: /hacsfiles/popup-backdrop-filter/popup-backdrop-filter.js
+  - type: module
+    url: /hacsfiles/lovelace-swipe-navigation/swipe-navigation.js
+    
+title: 'Casa'
+views:
+    
+    #VIEW PRINCIPALE
+
+  - badges:
+      - entity: person.alessio_carusio
+      - entity: person.massimo_carusio
+      - entity: person.sara_simonelli
+      - entity: person.giulia_balsamo
+    cards:
+    
+    ###############################################
+    #                                             #
+    #                Luci Casa                    #
+    #                                             #
+    ###############################################
+    
+      - entities:
+          - entity: light.luce_camera_alessio
+          - entity: light.luce_corridoio
+          - entity: light.luce_soggiorno_1
+          - entity: light.luce_soggiorno_2
+        show_header_toggle: true
+        theme: Backend-selected
+        title: Luci
+        type: entities
+        
+        
+    ###############################################
+    #                                             #
+    #               Spine Blitzwolf               #
+    #                                             #
+    ###############################################        
+    
+      - entities:
+          - entities:
+              - entity: sensor.spina1_power
+                name: Consumo
+            entity: switch.spina_1
+            name: Stufa
+            secondary_info: Camera Alessio
+            state_color: true
+            toggle: true
+            type: 'custom:multiple-entity-row'
+          - entities:
+              - entity: sensor.spina2_power
+                name: Consumo
+            entity: switch.spina_2
+            name: Caldobagno
+            secondary_info: Bagno Piccolo
+            state_color: true
+            toggle: true
+            type: 'custom:multiple-entity-row'
+        show_header_toggle: true
+        title: Spine
+        type: entities
+    icon: 'mdi:home-circle'
+    panel: false
+    path: casa
+    theme: Backend-selected
+    title: Home
+    
+     #VIEW TEMPERATURE
+     
+  - badges: []
+    cards:
+    
+    ###############################################
+    #                                             #
+    #               Riscaldamento                 #
+    #                                             #
+    ############################################### 
+    
+      - control:
+          hvac:
+            another_mode: true
+            'off':
+              icon: 'mdi:radiator-off'
+              name: Spento
+            'on':
+              icon: 'mdi:whitewalker'
+              name: Acceso
+            some_mode: false
+        entity: climate.riscaldamento
+        label:
+          state: Stato
+          temperature: Temperatura
+        sensors:
+          - entity: sensor.umidita_corridoio
+            name: Umidità
+        step_size: 0.5
+        type: 'custom:simple-thermostat'
+        
+    ###############################################
+    #                                             #
+    #            Temperatura Corridoio            #
+    #                                             #
+    ###############################################         
+        
+      - entities:
+          - entity: sensor.temperatura_corridoio
+          - entity: sensor.umidita_corridoio
+          
+          
+        type: entities
+    icon: 'mdi:thermometer'
+    panel: false
+    title: Temperature
+    
+    
+    
+  - badges: []
+    cards:
+      - entity: light.luce_camera_alessio
+        type: light
+      - entity: light.luce_corridoio
+        type: light
+      - entity: light.luce_soggiorno_1
+        type: light
+      - entity: light.luce_soggiorno_2
+        type: light
+    icon: 'mdi:tablet-ipad'
+    panel: false
+    path: ipad
+    title: Luci Ipad
+  - badges: []
+    cards:
+      - color_thresholds:
+          - color: '#f39c12'
+            value: 45
+          - color: '#d35400'
+            value: 68
+          - color: '#c0392b'
+            value: 75
+        entities:
+          - sensor.cpu_temp
+        show:
+          labels: true
+        type: 'custom:mini-graph-card'
+    icon: 'mdi:raspberry-pi'
+    path: rpi
+    title: RaspberryPi
+  - badges:
+      - entity: binary_sensor.snapshots_stale
+      - entity: binary_sensor.updater
+    cards:
+      - entities:
+          - entity: sensor.samsung_scx_3400_series_192_168_1_90
+          - entity: sensor.samsung_scx_3400_series_192_168_1_90_toner_black
+          - entity: sensor.samsung_scx_3400_series_192_168_1_90_tray_1
+        type: entities
+      - entities:
+          - entities:
+              - entity: sensor.humidity
+                name: Umidità
+              - entity: sensor.temperature
+                name: abcd
+            entity: sensor.temperature
+            icon: 'mdi:car-esp'
+            name: Bagno Piccolo
+            secondary_info:
+              entity: sensor.bagno_piccolo_info
+              name: false
+            type: 'custom:multiple-entity-row'
+        type: entities
+      - entities:
+          - entity: switch.spina_1
+            state_color: true
+          - entity: sensor.spina1_power
+          - entity: sensor.spina1_current
+          - entity: sensor.spina1_voltage
+          - entity: sensor.spina1_energy_today
+          - entity: sensor.spina1_energy_total
+        show_header_toggle: false
+        title: Stufa
+        type: entities
+      - entities:
+          - entity: switch.spina_2
+          - entity: sensor.spina2_power
+          - entity: sensor.spina2_current
+          - entity: sensor.spina2_voltage
+          - entity: sensor.spina2_energy_today
+          - entity: sensor.spina2_energy_total
+        show_header_toggle: false
+        title: Caldobagno
+        type: entities
+      - default_dismiss: false
+        default_open: true
+        hold_action:
+          action: url
+          url: 'https://www.home-assistant.io'
+        icon: 'mdi:home'
+        items:
+          - haptic: true
+            icon: 'mdi:flash'
+            name: Blue Night
+            tap_action:
+              action: call-service
+              service: frontend.set_theme
+              service_data:
+                name: blue_night
+          - haptic: true
+            icon: 'mdi:switch'
+            name: default
+            tap_action:
+              action: call-service
+              service: frontend.set_theme
+              service_data:
+                name: default
+        name: Home
+        type: 'custom:radial-menu'
+    icon: 'mdi:account-cog'
+    path: impostazioni
+    title: Impostazioni

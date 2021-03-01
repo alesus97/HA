@@ -1,0 +1,93 @@
+# Configure a default setup of Home Assistant (frontend, api, etc)
+homeassistant:
+  name: Casa
+  latitude: !secret homeassistant_latitude
+  longitude: !secret homeassistant_longitude
+  unit_system: metric
+  time_zone: Europe/Rome
+  external_url: !secret external_url
+  internal_url: !secret internal_url
+  customize: !include customize.yaml
+  allowlist_external_dirs: #Serve per far vedere il db dal sensore della dimensione
+   - /config
+
+cloud:
+  alexa:
+    filter:
+      include_entities:
+        - climate.riscaldamento
+        - cover.tapparella_camera_alessio
+        - sensor.temperatura_camera_alessio
+        - sensor.temperatura_corridoio
+        - sensor.temperatura_esterna_strada
+
+
+http:
+  ssl_certificate: /ssl/fullchain.pem
+  ssl_key: /ssl/privkey.pem
+
+default_config:
+
+frontend:
+  themes: !include_dir_merge_named themes
+
+hacs:
+  token: 3963df847ef979c82d48e478e1b5ae953998ef18
+
+#spotcast:
+#  sp_dc: !secret sp_dc
+#  sp_key: !secret sp_key
+
+logger:
+  default: info
+  logs:
+    custom_components.hacs: debug
+    hacs: debug
+    queueman: debug
+    AIOGitHubAPI: debug
+
+mqtt:
+    broker: core-mosquitto
+    username: !secret mqtt_username
+    password: !secret mqtt_password 
+
+tts:
+  - platform: google_translate
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+light: !include lights.yaml         
+sensor: !include sensors.yaml       
+switch: !include switches.yaml      
+cover: !include covers.yaml        
+
+history: !include history.yaml
+shell_command: !include shellCommands.yaml
+
+mobile_app:
+discovery:
+ios:
+shopping_list:
+wake_on_lan:
+#smartir:
+    
+climate:
+  - platform: generic_thermostat
+    name: Riscaldamento
+    heater: switch.switch_sonoff_riscaldamento
+    target_sensor: sensor.temperatura_corridoio
+    min_temp: 15
+    max_temp: 30
+    ac_mode: False
+    cold_tolerance: 0.5
+    hot_tolerance: 0
+    min_cycle_duration:
+      seconds: 5
+    keep_alive:
+      minutes: 3
+    initial_hvac_mode: "off"
+    away_temp: 16
+    

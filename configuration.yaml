@@ -1,4 +1,9 @@
-# Configure a default setup of Home Assistant (frontend, api, etc)
+####################################################
+#                                                  #
+#                Default Config                    #
+#                                                  #
+####################################################
+
 homeassistant:
   name: Casa
   latitude: !secret homeassistant_latitude
@@ -11,6 +16,14 @@ homeassistant:
   allowlist_external_dirs: #Serve per far vedere il db dal sensore della dimensione
    - /config
 
+
+
+####################################################
+#                                                  #
+#                     CLOUD                        #
+#                                                  #
+####################################################
+
 cloud:
   alexa:
     filter:
@@ -22,6 +35,13 @@ cloud:
         - sensor.temperatura_esterna_strada
 
 
+
+####################################################
+#                                                  #
+#                     HTTP                         #
+#                                                  #
+####################################################
+
 http:
   ssl_certificate: /ssl/fullchain.pem
   ssl_key: /ssl/privkey.pem
@@ -31,12 +51,16 @@ default_config:
 frontend:
   themes: !include_dir_merge_named themes
 
-hacs:
-  token: 3963df847ef979c82d48e478e1b5ae953998ef18
 
 #spotcast:
 #  sp_dc: !secret sp_dc
 #  sp_key: !secret sp_key
+
+####################################################
+#                                                  #
+#                     LOGGER                       #
+#                                                  #
+####################################################
 
 logger:
   default: info
@@ -45,6 +69,13 @@ logger:
     hacs: debug
     queueman: debug
     AIOGitHubAPI: debug
+
+
+####################################################
+#                                                  #
+#                     MQTT                         #
+#                                                  #
+####################################################
 
 mqtt:
     broker: core-mosquitto
@@ -57,12 +88,9 @@ tts:
 group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml
-scene: !include scenes.yaml
-
 light: !include lights.yaml         
-sensor: !include sensors.yaml       
-switch: !include switches.yaml      
-cover: !include covers.yaml        
+sensor: !include sensors.yaml    
+switch: !include switches.yaml
 
 history: !include history.yaml
 shell_command: !include shellCommands.yaml
@@ -74,10 +102,17 @@ shopping_list:
 wake_on_lan:
 #smartir:
     
+####################################################
+#                                                  #
+#                     CLIMATE                      #
+#                                                  #
+####################################################    
+    
+    
 climate:
   - platform: generic_thermostat
     name: Riscaldamento
-    heater: switch.switch_sonoff_riscaldamento
+    heater: switch.riscaldamento
     target_sensor: sensor.temperatura_corridoio
     min_temp: 15
     max_temp: 30
